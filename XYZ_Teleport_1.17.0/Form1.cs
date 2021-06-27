@@ -32,9 +32,22 @@ namespace XYZ_Teleport_1._17._0
                 {
                     string newDa = "";
                     label1.Text = Game.Camera.ToString() + "\n" +
-                        SPL_Compass[(int)((Game.Camera.x + 180f) / 45f)];
+                        DegreesToCardinal(Game.Camera.x + 180) + "\n" +
+                        DegreesToCardinalDetailed(Game.Camera.x + 180);
                 }
             }
+        }
+
+        public static string DegreesToCardinal(double degrees) // Thanks https://gist.github.com/adrianstevens/8163205 i just learned my method sucks ;p
+        {
+            string[] caridnals = { "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N" };
+            return caridnals[(int)Math.Round(((double)degrees % 360) / 45)];
+        }
+
+        public static string DegreesToCardinalDetailed(double degrees)
+        {
+            string[] caridnals = { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N" };
+            return caridnals[(int)Math.Round(((double)degrees * 10 % 3600) / 225)];
         }
 
         private void Form1_Load(object sender, EventArgs e) { }
